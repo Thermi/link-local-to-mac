@@ -1,8 +1,24 @@
 #! /bin/env python3
 
+# link-local-to-mac.py converts IPv6 link-local addresses to MAC addresses
+# Copyright (C) 2017  Noel Kuntze
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import argparse
 import json
 import sys
+import textwrap
 
 class address:
 	link_local = None
@@ -83,21 +99,31 @@ class link_local_to_mac:
 				print(i.mac)
 
 	def run(self):
+		gnu = """
+		link-local-to-mac.py  Copyright (C) {2017} Noel Kuntze
+		This program comes with ABSOLUTELY NO WARRANTY.
+		This is free software, and you are welcome to redistribute it
+		under certain conditions.
+		"""
+
 		parser = argparse.ArgumentParser(
-    		description="Converts IPv6 link-local addresses to MAC addresses")
+    		description="Converts IPv6 link-local addresses to MAC addresses",
+    		formatter_class=argparse.RawDescriptionHelpFormatter,
+			epilog = textwrap.dedent(gnu)
+		)
 		parser.add_argument("-j",
     		"--json",
     		action = "store_true",
     		dest = "json",
     		default = False,
     		help =  "Whether to print addresses in a JSON array",
-    		)
+    	)
 		parser.add_argument("file",
     		default = None,
     		nargs = "?",
     		help = "An optional file from which to read the link-local addresses from."
     		"It must contain one link-local address per line."
-    		)
+    	)
 
 		args = parser.parse_args()
 		self.json = args.json
