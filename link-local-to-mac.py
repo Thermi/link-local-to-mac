@@ -44,6 +44,9 @@ class link_local_to_mac:
 			mac_address_parts.append(i[:2])
 			mac_address_parts.append(i[-2:])
 
+		mac_address_parts[0] = "%02x" % (int(mac_address_parts[0], 16) ^ 2)
+
+
 		del mac_address_parts[4]
 		del mac_address_parts[3]
 
