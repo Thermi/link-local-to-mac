@@ -59,8 +59,6 @@ class link_local_to_mac:
 
 		addresses = input_file.readlines()
 
-		print ("Read {} lines".format(len(addresses)))
-
 		for i in range(0,len(addresses)):
 			if addresses[i].strip() == "":
 				continue
